@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quick Notes</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+        input, textarea { padding: 10px; font-size: 16px; }
+        button { padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .note { background: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <h2>Add a Note</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Note Title" required>
+        <textarea name="content" placeholder="Write your note here..." rows="4" required></textarea>
+        <button type="submit">Save Note</button>
+    </form>
+
+    <h2>My Notes</h2>
+    {% for note in notes %}
+        <div class="note">
+            <h3>{{ note.title }}</h3>
+            <p>{{ note.content }}</p>
+            <small style="color: gray;">{{ note.created_at|date:"M d, Y H:i" }}</small>
+        </div>
+        <p>{{ note.title }}</p>
+        <a href="/delete/{{ note.id }}/">Delete</a>
+    {% empty %}
+        <p>No notes yet!</p>
+    {% endfor %}
+
+</body>
+</html>
