@@ -9,6 +9,19 @@
         input, textarea { padding: 10px; font-size: 16px; }
         button { padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
         .note { background: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin-bottom: 15px; }
+
+        .note a button {
+            background-color: rgb(29, 15, 121);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+    }
+    .note a button:hover {
+        opacity: 0.8px;
+        background-color: blue;
+    }
     </style>
 </head>
 <body>
@@ -27,9 +40,10 @@
             <h3>{{ note.title }}</h3>
             <p>{{ note.content }}</p>
             <small style="color: gray;">{{ note.created_at|date:"M d, Y H:i" }}</small>
+            <a href="/delete/{{ note.id }}/"><button>Delete</button></a>
         </div>
-        <p>{{ note.title }}</p>
-        <a href="/delete/{{ note.id }}/">Delete</a>
+        
+        
     {% empty %}
         <p>No notes yet!</p>
     {% endfor %}
